@@ -1,13 +1,14 @@
 import os
 import boto3
 
-def handler(event, context):
 
-    # Raw event data
+def handler(event, context):
+    # Raw event data.
     path = event["rawPath"]
     if path != "/":
-        return {"statusCode": 404, "body": "Not found"}
+        return {"statusCode": 404, "body": "Not found."}
 
+    # Get a reference to the DDB table.
     dynamodb = boto3.resource("dynamodb")
     table = dynamodb.Table(os.environ.get("TABLE_NAME"))
 
@@ -22,14 +23,10 @@ def handler(event, context):
     new_visit_count = visit_count + 1
     table.put_item(Item={"key": "visit_count", "value": new_visit_count})
 
-    version = os.environ.get("VERSION", "1.0.0")  # Fixed here
+    version = os.environ.get("VERSION", "0.0")
     response_body = {
-        "message": "Hello World",
-        "version": version
+        "message": "Hello World 👋",
+        "version": version,
+        "visit_count": new_visit_count,
     }
-    
-    # Kirim respons dengan status code 200 dan menggunakan response_body
-    return {
-        "statusCode": 200,
-        "body": response_body
-    }
+    return {"statusCode": 200, "body": response_body}
