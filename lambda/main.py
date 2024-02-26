@@ -1,9 +1,11 @@
 def handler(event, context):
-    # Proses event sesuai kebutuhan Anda
-    print(event)
+    response_body = {
+        "message": "Hello World",
+        "version": "1.0.0"
+    }
     
-    # Kirim respons dengan status code 200 dan pesan "Hello World!"
+    # Kirim respons dengan status code 200 dan menggunakan response_body
     return {
         "statusCode": 200,
-        "body": "Hello World!"
+        "body": response_body
     }
