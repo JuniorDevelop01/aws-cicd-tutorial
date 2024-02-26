@@ -1,3 +1,5 @@
+import os
+
 def handler(event, context):
     response_body = {
         "message": "Hello World",
